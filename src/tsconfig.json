@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "rootDir": ".",
+        "outDir": "../dist",
+        "module": "NodeNext",
+        "strict": true,
+        "resolveJsonModule": true,
+    },
+    "references": [
+        { "path": ".." }
+    ]
+}
