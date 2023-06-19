@@ -28,13 +28,16 @@ describe('NpmDependencies', () => {
                     name: 'lodash',
                     version: '',
                 });
-
                 expect(NpmDependency.parse('lodash@1.2.3')).toMatchObject({
                     name: 'lodash',
                     version: '1.2.3',
                 });
                 expect(NpmDependency.parse('lodash@^1.2.3')).toMatchObject({
                     name: 'lodash',
+                    version: '^1.2.3',
+                });
+                expect(NpmDependency.parse('@types/node@^1.2.3')).toMatchObject({
+                    name: '@types/node',
                     version: '^1.2.3',
                 });
             });
@@ -118,11 +121,11 @@ describe('NpmDependencies', () => {
     });
 
     describe('NpmDependencies#toString', () => {
-        it('returns a string representation of all the dependencies', () => {
+        it('returns a string representation of all the dependencies and the order is the reverse of input order', () => {
             const instance = new NpmDependencies();
             instance.add('lodash');
             instance.add('underscore@^2');
-            expect(instance.toString()).toBe('lodash underscore@^2');
+            expect(instance.toString()).toBe('underscore@^2 lodash');
         });
     });
 });

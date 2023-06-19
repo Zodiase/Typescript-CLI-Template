@@ -50,6 +50,11 @@ tsconfig.tsbuildinfo
         toolProjectDir,
         `
 typescript
+jest
+ts-node
+ts-jest
+@types/jest
+@types/node
 `,
         {
             dev: true,
