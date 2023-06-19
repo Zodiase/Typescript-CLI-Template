@@ -5,5 +5,4 @@ module.exports = {
         es2022: true,
     },
     root: true,
-    ignorePatterns: ['old-template'],
 };
