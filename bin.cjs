@@ -2,7 +2,7 @@
 
 {
     // Enforce node engine version.
-    const semVerSatisfies = require('semver').satisfies;
+    const semVerSatisfies = require('semver/functions/satisfies');
     const packageJson = require('./package.json');
     const nodeEngineRequirement = packageJson?.engines?.node;
     if (nodeEngineRequirement && !semVerSatisfies(process.version, nodeEngineRequirement)) {
@@ -20,7 +20,7 @@
     const devMode = require('fs').existsSync(`${__dirname}/src`) && process.env?.NODE_ENV !== 'production';
 
     /**
-     * @returns {Promise<{ run: (argv: string[]) => string }>}
+     * @returns {Promise<{ run: (argv: string[]) => Promise<void> }>}
      */
     const loadCLI = async () => {
         if (!devMode) {
