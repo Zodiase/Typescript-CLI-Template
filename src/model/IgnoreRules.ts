@@ -25,6 +25,10 @@ export default class IgnoreRules {
 
     private rules = new Set<string>();
 
+    count(): number {
+        return this.rules.size;
+    }
+
     add(pattern: string): IgnoreRules {
         this.rules.add(pattern.trim());
         return this;
