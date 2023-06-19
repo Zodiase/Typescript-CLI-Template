@@ -1,11 +1,15 @@
 {
     "compilerOptions": {
         "rootDir": ".",
-        "outDir": ".",      // if out path for a file is same as its src path, nothing will be emitted
-        "composite": true,  // required on the dependency project for references to work
-        "resolveJsonModule": true,
+        // if out path for a file is same as its src path, nothing will be emitted
+        "outDir": ".",
+        // required on the dependency project for references to work
+        "composite": true,
+        "resolveJsonModule": true
     },
-    "files": [              // by whitelisting the files to include, you avoid the default TS behavior, which
-        "package.json"      // will include everything, resulting in `src` being included in both projects (bad)
+    "files": [
+        // by whitelisting the files to include, you avoid the default TS behavior, which
+        // will include everything, resulting in `src` being included in both projects (bad)
+        "package.json"
     ]
 }
