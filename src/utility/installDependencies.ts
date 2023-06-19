@@ -13,6 +13,22 @@ export default async (projectDir: string, dependenciesStr: string, options: { de
         return collection;
     }, dependencies);
 
-    console.log(`npm install ${saveFlag} ${dependencies.toString()}`);
-    //! Execute the command.
+    const installCmdStr = `npm install ${saveFlag} ${dependencies.toString()}`;
+
+    return new Promise((resolve, reject) => {
+        console.log(`> ${installCmdStr}`);
+        exec(
+            installCmdStr,
+            {
+                cwd: projectDir,
+            },
+            (error, stdout, stderr) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(stdout);
+                }
+            }
+        );
+    });
 };
