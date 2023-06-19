@@ -61,4 +61,57 @@ ts-jest
             saveExact: false,
         }
     );
+
+    await installDependencies(
+        toolProjectDir,
+        `
+eslint
+@typescript-eslint/eslint-plugin
+@typescript-eslint/parser
+eslint-config-prettier
+@xch/prettier-config
+    `,
+        {
+            dev: true,
+            saveExact: false,
+        }
+    );
+
+    await installDependencies(
+        toolProjectDir,
+        `
+prettier
+`,
+        {
+            dev: true,
+            saveExact: true,
+        }
+    );
+
+    // TODO:
+    // updatePackageJson(toolProjectDir, {
+    //     prettier: '@xch/prettier-config',
+    // });
+
+    await installDependencies(
+        toolProjectDir,
+        `
+commander
+semver
+`,
+        {
+            dev: false,
+            saveExact: false,
+        }
+    );
+    await installDependencies(
+        toolProjectDir,
+        `
+@types/semver
+`,
+        {
+            dev: true,
+            saveExact: false,
+        }
+    );
 };
