@@ -1,4 +1,4 @@
-import { writeFileSync } from 'fs';
+import { ensureFileSync, writeFileSync } from 'fs-extra';
 import { resolve as resolvePath } from 'path';
 // import Logger, { CommonLoggingKeys } from './Logger';
 
@@ -6,5 +6,6 @@ import { resolve as resolvePath } from 'path';
 
 export default (projectDir: string, filePath: string, content: string) => {
     const absPath = resolvePath(projectDir, filePath);
+    ensureFileSync(absPath);
     writeFileSync(absPath, content);
 };

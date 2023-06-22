@@ -122,4 +122,6 @@ semver
         './bin.cjs',
         readFileSync(resolvePath(__dirname, '../bin.cjs'), { encoding: 'utf-8' })
     );
+
+    writeGenericFile(toolProjectDir, './src/cli.ts', "console.log('hello world!')");
 };
