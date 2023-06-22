@@ -25,14 +25,30 @@
     const loadCLI = async () => {
         if (!devMode) {
             // this runs from the compiled javascript source
-            return require(`${__dirname}/dist/cli.js`);
+            try {
+                return require(`${__dirname}/dist/cli.js`);
+            } catch (e) {
+                if (e instanceof Error && e.code === 'MODULE_NOT_FOUND') {
+                    console.error('No Logic');
+                    process.exit(3);
+                }
+                throw e;
+            }
         } else {
             // this runs from the typescript source (for dev only)
             console.warn('::: Running from source code :::');
             // hook into ts-node so we can run typescript on the fly
             require('ts-node').register({ project: `${__dirname}/src/tsconfig.json`, emit: false });
             // run the CLI with the current process arguments
-            return require(`${__dirname}/src/cli.ts`);
+            try {
+                return require(`${__dirname}/src/cli.ts`);
+            } catch (e) {
+                if (e instanceof Error && e.code === 'MODULE_NOT_FOUND') {
+                    console.error('No Logic');
+                    process.exit(3);
+                }
+                throw e;
+            }
         }
     };
 
