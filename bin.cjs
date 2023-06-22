@@ -38,7 +38,18 @@
             // this runs from the typescript source (for dev only)
             console.warn('::: Running from source code :::');
             // hook into ts-node so we can run typescript on the fly
-            require('ts-node').register({ project: `${__dirname}/src/tsconfig.json`, emit: false });
+            const tsConfigFilePath = `${__dirname}/src/tsconfig.json`;
+            try {
+                require('ts-node').register({ project: tsConfigFilePath, emit: false });
+            } catch (e) {
+                if (e instanceof Error) {
+                    if (e.diagnosticCodes?.[0] === 5083) {
+                        console.error('Failed to load TypeScript config file', { path: tsConfigFilePath });
+                        process.exit(3);
+                    }
+                }
+                throw e;
+            }
             // run the CLI with the current process arguments
             try {
                 return require(`${__dirname}/src/cli.ts`);
