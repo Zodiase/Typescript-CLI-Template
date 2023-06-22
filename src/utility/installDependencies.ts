@@ -3,9 +3,10 @@ import NpmDependencies from '../model/NpmDependencies';
 
 export default async (projectDir: string, dependenciesStr: string, options: { dev: boolean; saveExact: boolean }) => {
     const saveFlag = (options.dev ? '--save-dev' : '--save') + (options.saveExact ? ' --save-exact' : '');
+    const listOfDependencies = dependenciesStr.trim().split('\n');
     const dependencies = new NpmDependencies();
 
-    dependenciesStr.split('\n').reduce((collection, line) => {
+    listOfDependencies.reduce((collection, line) => {
         if (line.trim().length > 0) {
             collection.add(line);
         }

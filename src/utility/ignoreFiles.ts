@@ -14,14 +14,15 @@ export type IgnoreFileType = keyof typeof IgnoreFileTypes;
 
 export default (projectDir: string, patterns: string, type: IgnoreFileType) => {
     const ignoreFilePath = resolvePath(projectDir, IgnoreFileTypes[type]);
+    const listOfPatterns = patterns.trim().split('\n');
     logger.debug('Adding ignore rules', {
         ignoreFileType: type,
         [CommonLoggingKeys.Path]: ignoreFilePath,
-        [CommonLoggingKeys.Value]: patterns,
+        [CommonLoggingKeys.Value]: listOfPatterns,
     });
     const ignoreRules = existsSync(ignoreFilePath) ? IgnoreRules.loadFileSync(ignoreFilePath) : new IgnoreRules();
 
-    patterns.split('\n').reduce((rules, line) => {
+    listOfPatterns.reduce((rules, line) => {
         rules.add(line);
 
         return rules;
