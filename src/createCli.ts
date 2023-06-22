@@ -1,3 +1,4 @@
+import { readFileSync } from 'fs';
 import { resolve as resolvePath } from 'path';
 import sanitizeFilename from 'sanitize-filename';
 import writePackageJson from './utility/writePackageJson';
@@ -5,6 +6,7 @@ import ensureProjectDir from './utility/ensureProjectDir';
 import writeReadme from './utility/writeReadme';
 import ignoreFiles from './utility/ignoreFiles';
 import installDependencies from './utility/installDependencies';
+import writeGenericFile from './utility/writeGenericFile';
 
 interface CreateCliOptions {
     //!
@@ -113,5 +115,11 @@ semver
             dev: true,
             saveExact: false,
         }
+    );
+
+    writeGenericFile(
+        toolProjectDir,
+        './bin.cjs',
+        readFileSync(resolvePath(__dirname, '../bin.cjs'), { encoding: 'utf-8' })
     );
 };
