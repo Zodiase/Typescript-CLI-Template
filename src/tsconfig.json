@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "rootDir": ".",
+        "outDir": "../dist",
+        "module": "NodeNext",
+        "strict": true,
+        "target": "ES2022",
+        "esModuleInterop": true,
+        "resolveJsonModule": true
+    },
+    "references": [{ "path": ".." }]
+}
