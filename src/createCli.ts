@@ -91,9 +91,38 @@ prettier
         }
     );
 
+    writeGenericFile(
+        toolProjectDir,
+        './.eslintrc.cjs',
+        `
+module.exports = {
+    extends: ['eslint:recommended', 'prettier'],
+    env: {
+        node: true,
+        es2022: true,
+    },
+    root: true,
+};
+`
+    );
+
+    writeGenericFile(
+        toolProjectDir,
+        './src/.eslintrc.cjs',
+        `
+module.exports = {
+    extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
+    parser: '@typescript-eslint/parser',
+    plugins: ['@typescript-eslint'],
+    root: false,
+};
+`
+    );
+
     updatePackageJson(
         toolProjectDir,
         `
+scripts.check:style="npx eslint ."
 scripts.format="npx prettier --ignore-path .gitignore --write ."
 scripts.dev:run="node bin.cjs"
 scripts.dist:run="node bin.cjs"
