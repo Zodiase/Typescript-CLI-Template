@@ -73,7 +73,7 @@ eslint
 @typescript-eslint/parser
 eslint-config-prettier
 @xch/prettier-config
-    `,
+`,
         {
             dev: true,
             saveExact: false,

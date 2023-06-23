@@ -2,12 +2,13 @@ import { readFileSync, writeFileSync } from 'fs';
 import { resolve as resolvePath } from 'path';
 import objectPath from 'object-path';
 import Logger, { CommonLoggingKeys } from './Logger';
+import skippable from './skippable';
 
 const logger = new Logger(module.id);
 const propertyLineRegex =
     /^(?<path>[a-z][a-z0-9]*(?::[a-z][a-z0-9]*)*(?:\.[a-z][a-z0-9]*(?::[a-z][a-z0-9]*)*)*)="(?<value>.+)"$/i;
 
-export default (projectDir: string, properties: string) => {
+export default skippable((projectDir: string, properties: string) => {
     const packageJsonPath = resolvePath(projectDir, 'package.json');
     const listOfProperties = properties
         .trim()
@@ -48,4 +49,4 @@ export default (projectDir: string, properties: string) => {
     // TODO: sort properties? Motivation: objectPath seems to order new properties in a strange way.
 
     writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 4) + '\n');
-};
+});
