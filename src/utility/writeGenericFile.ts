@@ -7,5 +7,5 @@ import { resolve as resolvePath } from 'path';
 export default (projectDir: string, filePath: string, content: string) => {
     const absPath = resolvePath(projectDir, filePath);
     ensureFileSync(absPath);
-    writeFileSync(absPath, content);
+    writeFileSync(absPath, content.trim() + '\n');
 };

@@ -123,5 +123,46 @@ semver
         readFileSync(resolvePath(__dirname, '../bin.cjs'), { encoding: 'utf-8' })
     );
 
+    writeGenericFile(
+        toolProjectDir,
+        './tsconfig.json',
+        `
+{
+    "compilerOptions": {
+        "rootDir": ".",
+        // if out path for a file is same as its src path, nothing will be emitted
+        "outDir": ".",
+        // required on the dependency project for references to work
+        "composite": true,
+        "resolveJsonModule": true
+    },
+    "files": [
+        // by whitelisting the files to include, you avoid the default TS behavior, which
+        // will include everything, resulting in \`src\` being included in both projects (bad)
+        "package.json"
+    ]
+}
+`
+    );
+
+    writeGenericFile(
+        toolProjectDir,
+        './src/tsconfig.json',
+        `
+{
+    "compilerOptions": {
+        "rootDir": ".",
+        "outDir": "../dist",
+        "module": "NodeNext",
+        "strict": true,
+        "target": "ES2022",
+        "esModuleInterop": true,
+        "resolveJsonModule": true
+    },
+    "references": [{ "path": ".." }]
+}
+`
+    );
+
     writeGenericFile(toolProjectDir, './src/cli.ts', "console.log('hello world!')");
 };
