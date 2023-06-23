@@ -11,7 +11,7 @@
     "main": "dist/main.js",
     "scripts": {
         "check:style": "npx eslint .",
-        "format": "npx prettier --write .",
+        "format": "npx prettier --ignore-path .gitignore --write .",
         "dev:run": "node bin.cjs",
         "dist:run": "node bin.cjs",
         "dist:build": "npx tsc --build src",
