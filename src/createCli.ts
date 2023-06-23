@@ -102,6 +102,7 @@ module.exports = {
         es2022: true,
     },
     root: true,
+    ignorePatterns: ['dist'],
 };
 `
     );
