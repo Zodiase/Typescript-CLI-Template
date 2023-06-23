@@ -94,6 +94,7 @@ prettier
     updatePackageJson(
         toolProjectDir,
         `
+scripts.format="npx prettier --ignore-path .gitignore --write ."
 scripts.dev:run="node bin.cjs"
 scripts.dist:run="node bin.cjs"
 scripts.dist:build="npx tsc --build src"
