@@ -63,11 +63,26 @@
         }
     };
 
-    loadCLI().then(
-        (cli) => cli.run(process.argv),
-        (reason) => {
-            console.error('Unexpected error', { reason });
-            process.exit(1);
-        }
-    );
+    loadCLI()
+        .then(
+            (cli) => {
+                if (typeof cli.run !== 'function') {
+                    throw new TypeError('Error loading CLI: Main CLI module must export a function named "run".');
+                }
+
+                cli.run(process.argv);
+            },
+            (reason) => {
+                console.error('Unexpected error', { reason });
+                process.exit(1);
+            }
+        )
+        .catch((e) => {
+            if (e instanceof Error) {
+                console.error(e.message);
+                process.exit(1);
+            }
+
+            throw e;
+        });
 }

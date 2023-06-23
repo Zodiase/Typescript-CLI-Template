@@ -164,5 +164,13 @@ semver
 `
     );
 
-    writeGenericFile(toolProjectDir, './src/cli.ts', "console.log('hello world!')");
+    writeGenericFile(
+        toolProjectDir,
+        './src/cli.ts',
+        `
+export const run = async (argv: string[]) => {
+    console.log('hello world!');
+};
+`
+    );
 };
