@@ -7,6 +7,7 @@ import writeReadme from './utility/writeReadme';
 import ignoreFiles from './utility/ignoreFiles';
 import installDependencies from './utility/installDependencies';
 import writeGenericFile from './utility/writeGenericFile';
+import updatePackageJson from './utility/updatePackageJson';
 
 interface CreateCliOptions {
     //!
@@ -90,10 +91,17 @@ prettier
         }
     );
 
-    // TODO:
-    // updatePackageJson(toolProjectDir, {
-    //     prettier: '@xch/prettier-config',
-    // });
+    updatePackageJson(
+        toolProjectDir,
+        `
+scripts.dev:run="node bin.cjs"
+scripts.dist:run="node bin.cjs"
+scripts.dist:build="npx tsc --build src"
+scripts.dist:clean="rm -rf dist"
+scripts.test="jest"
+prettier="@xch/prettier-config"
+`
+    );
 
     await installDependencies(
         toolProjectDir,

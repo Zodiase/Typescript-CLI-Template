@@ -8,5 +8,5 @@ const logger = new Logger(module.id);
 export default (projectDir: string, packageJson: PackageJson) => {
     const packageJsonPath = resolvePath(projectDir, 'package.json');
     logger.debug('Creating NPM package manifest', { [CommonLoggingKeys.Path]: packageJsonPath });
-    writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 4));
+    writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 4) + '\n');
 };

@@ -2,7 +2,7 @@ import sanitizeFilename from 'sanitize-filename';
 import { validRange as validSemverRange } from 'semver';
 
 export class NpmDependency {
-    private static regex = /^(?:@(?<scope>[^@\s/]{1,30})\/)?(?<name>[^@\s]{1,30})(?:@(?<version>.{1,256}))?$/;
+    private static regex = /^(?:@(?<scope>[^@\s/]{1,30})\/)?(?<name>[^@\s]{1,30})(?:@(?<version>.{1,256}))?$/i;
 
     static parse(dependency: string): null | NpmDependency {
         const match = NpmDependency.regex.exec(dependency);
@@ -11,10 +11,12 @@ export class NpmDependency {
             return null;
         }
 
-        const packageScopeName = sanitizeFilename(match.groups.scope ?? '', {
+        const { scope: rawPackageScopeName, name: rawPackageName, version: rawPackageVersion } = match.groups;
+
+        const packageScopeName = sanitizeFilename(rawPackageScopeName ?? '', {
             replacement: '',
         }).trim();
-        const packageName = sanitizeFilename(match.groups.name ?? '', {
+        const packageName = sanitizeFilename(rawPackageName ?? '', {
             replacement: '',
         }).trim();
 
@@ -23,7 +25,7 @@ export class NpmDependency {
         }
 
         const scopedPackageName = packageScopeName ? `@${packageScopeName}/${packageName}` : packageName;
-        const packageVersion = validSemverRange(match.groups.version) ? match.groups.version.trim() : '';
+        const packageVersion = validSemverRange(rawPackageVersion) ? rawPackageVersion.trim() : '';
 
         return new NpmDependency(scopedPackageName, packageVersion);
     }
